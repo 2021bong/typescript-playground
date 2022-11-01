@@ -1,8 +1,8 @@
 import { HashRouter, Routes, Route } from 'react-router-dom';
-import WittyLogin from './pages/witty/login/WittyLogin';
 import GlobalStyle from './styles/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
+import JMC from './pages/jmc/JMC';
 
 const Router = () => {
   return (
@@ -10,7 +10,7 @@ const Router = () => {
       <HashRouter>
         <GlobalStyle />
         <Routes>
-          <Route path='/' element={<WittyLogin />} />
+          <Route path='/' element={<JMC />} />
         </Routes>
       </HashRouter>
     </ThemeProvider>
