@@ -1,55 +1,56 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import {
+  hansik,
+  boonsik,
+  yangsik,
+  ilsik,
+  joongsik,
+  dongnamasik,
+  worldsik,
+} from '../../utils/food';
 
 interface Types {
+  id: number;
   type: string;
   selected: boolean;
 }
 
 const JMC = () => {
   const [foodTypes, setFoodTypes] = useState([
-    {
-      type: '한식',
-      selected: true,
-    },
-    {
-      type: '분식',
-      selected: true,
-    },
-    {
-      type: '양식',
-      selected: true,
-    },
-    {
-      type: '일식',
-      selected: true,
-    },
-    {
-      type: '중식',
-      selected: true,
-    },
-    {
-      type: '동남아식',
-      selected: true,
-    },
-    {
-      type: '세계음식',
-      selected: true,
-    },
+    { id: 1, type: '한식', selected: true },
+    { id: 2, type: '분식', selected: true },
+    { id: 3, type: '양식', selected: true },
+    { id: 4, type: '일식', selected: true },
+    { id: 5, type: '중식', selected: true },
+    { id: 6, type: '동남아식', selected: true },
+    { id: 7, type: '세계음식', selected: true },
   ]);
   const [todayMenu, setTodayMenu] = useState('뭘까요?');
+  const [foodArr, setFoodArr] = useState(
+    [...hansik, boonsik, yangsik, ilsik, joongsik, dongnamasik, worldsik].flat()
+  );
 
   const handleSelectedTypes = (e: React.MouseEvent) => {
     const li = e.target as HTMLLIElement;
     setFoodTypes((prev) => {
       const newTypes = [...prev].map((el) => {
         return el.type == li.textContent
-          ? { type: el.type, selected: !el.selected }
+          ? { id: el.id, type: el.type, selected: !el.selected }
           : el;
       });
       return newTypes;
     });
   };
+
+  const getRandomMenu = () => {
+    const randomNum = Math.floor(Math.random() * foodArr.length);
+    setTodayMenu(foodArr[randomNum]);
+  };
+
+  useEffect(() => {
+    foodTypes.filter((el) => el.selected === true);
+  }, [foodTypes]);
 
   return (
     <Main>
@@ -69,7 +70,9 @@ const JMC = () => {
         <h5>오늘의 메뉴는?</h5>
         <p className='todayMenu'>{todayMenu}</p>
       </div>
-      <button className='btn'>메뉴 고르기</button>
+      <button className='btn' onClick={getRandomMenu}>
+        메뉴 고르기
+      </button>
     </Main>
   );
 };
