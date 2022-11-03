@@ -1,20 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import {
-  hansik,
-  boonsik,
-  yangsik,
-  ilsik,
-  joongsik,
-  dongnamasik,
-  worldsik,
-} from '../../utils/food';
+import { handleFoodArr } from '../../utils/food';
 
-interface Types {
-  id: number;
-  type: string;
-  selected: boolean;
-}
+type Menu = string | undefined | null;
 
 const JMC = () => {
   const [foodTypes, setFoodTypes] = useState([
@@ -26,10 +14,8 @@ const JMC = () => {
     { id: 6, type: '동남아식', selected: true },
     { id: 7, type: '세계음식', selected: true },
   ]);
-  const [todayMenu, setTodayMenu] = useState('뭘까요?');
-  const [foodArr, setFoodArr] = useState(
-    [...hansik, boonsik, yangsik, ilsik, joongsik, dongnamasik, worldsik].flat()
-  );
+  const [todayMenu, setTodayMenu] = useState<Menu>('뭘까요?');
+  const [foodArr, setFoodArr] = useState(handleFoodArr(foodTypes));
 
   const handleSelectedTypes = (e: React.MouseEvent) => {
     const li = e.target as HTMLLIElement;
@@ -45,11 +31,15 @@ const JMC = () => {
 
   const getRandomMenu = () => {
     const randomNum = Math.floor(Math.random() * foodArr.length);
-    setTodayMenu(foodArr[randomNum]);
+    const menu =
+      foodArr[randomNum] !== undefined
+        ? foodArr[randomNum]
+        : '분류를 선택해주세요';
+    setTodayMenu(menu);
   };
 
   useEffect(() => {
-    foodTypes.filter((el) => el.selected === true);
+    setFoodArr(handleFoodArr(foodTypes));
   }, [foodTypes]);
 
   return (
