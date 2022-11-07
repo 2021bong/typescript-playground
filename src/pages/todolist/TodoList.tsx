@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import CheckList from './components/CheckList';
 
 interface Todos {
   id: number;
   todo: string;
-  completed: boolean;
 }
 
 const TodoList = () => {
@@ -13,16 +12,12 @@ const TodoList = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const [idNum, setIdNum] = useState(1);
 
-  const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
   const handleAddTodos = () => {
-    console.log('newIdNum', idNum);
-    setTodos((prev) => [
-      ...prev,
-      { id: idNum, todo: inputValue, completed: false },
-    ]);
+    setTodos((prev) => [...prev, { id: idNum, todo: inputValue }]);
     setInputValue('');
     setIdNum((el) => el + 1);
   };

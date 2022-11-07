@@ -1,20 +1,19 @@
-import TodoList from '../TodoList';
+import CheckItem from './CheckItem';
 
 interface Todos {
   id: number;
   todo: string;
-  completed: boolean;
 }
 
 interface TodosProps {
   todos: Todos[];
 }
 
-const CheckList = ({ todos }: TodosProps): JSX.Element => {
+const CheckList = ({ todos }: TodosProps) => {
   return (
     <ul>
       {todos.map((el: Todos) => (
-        <li key={el.id}>{el.todo}</li>
+        <CheckItem key={el.id} todo={el.todo} />
       ))}
     </ul>
   );
