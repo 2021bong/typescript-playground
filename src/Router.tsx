@@ -11,7 +11,7 @@ const Router = () => {
       <HashRouter>
         <GlobalStyle />
         <Routes>
-          <Route path='' element={<TodoList />} />
+          <Route path='/' element={<TodoList />} />
           <Route path='/jmc' element={<JMC />} />
         </Routes>
       </HashRouter>
