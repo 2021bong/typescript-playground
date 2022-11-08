@@ -22,6 +22,11 @@ const TodoList = () => {
     setIdNum((el) => el + 1);
   };
 
+  const onDelete = (text: string) => {
+    const newTodos = [...todos].filter((el) => el.todo !== text);
+    setTodos(newTodos);
+  };
+
   return (
     <Main>
       <h1 className='title'>TodoList</h1>
@@ -34,7 +39,7 @@ const TodoList = () => {
         />
         <button onClick={handleAddTodos}>입력</button>
       </form>
-      {todos.length !== 0 && <CheckList todos={todos} />}
+      {todos.length !== 0 && <CheckList todos={todos} onDelete={onDelete} />}
     </Main>
   );
 };

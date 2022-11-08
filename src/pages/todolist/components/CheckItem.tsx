@@ -1,19 +1,24 @@
 import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
+type DeleteFunction = (text: string) => void;
+
 interface ItemProps {
   todo: string;
+  onDelete: DeleteFunction;
 }
 
-const CheckItem = ({ todo }: ItemProps) => {
+const CheckItem = ({ todo, onDelete }: ItemProps) => {
   const [checked, setChecked] = useState(false);
   const handleChecked = (e: ChangeEvent<HTMLInputElement>) => {
     setChecked(e.target.checked);
   };
 
-  const onEdit = () => {};
+  const handleDelete = () => {
+    onDelete(todo);
+  };
 
-  const onDelete = () => {};
+  const handleEdit = () => {};
 
   return (
     <Li>
@@ -21,8 +26,8 @@ const CheckItem = ({ todo }: ItemProps) => {
       <label htmlFor={todo} className={checked ? 'complete' : 'now'}>
         {todo}
       </label>
-      <button onClick={onEdit}>수정</button>
-      <button onClick={onDelete}>X</button>
+      <button onClick={handleDelete}>수정</button>
+      <button onClick={handleDelete}>X</button>
     </Li>
   );
 };
