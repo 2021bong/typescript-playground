@@ -2,18 +2,27 @@ import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
 type DeleteFunction = (text: string) => void;
-type EditFunction = (id: string | number, text: string) => void;
+type EditFunction = (id: number, text: string) => void;
+type HandleEditFunction = (id: number) => void;
 
 interface ItemProps {
   id: number;
   todo: string;
+  edit: boolean;
   onDelete: DeleteFunction;
   onEdit: EditFunction;
+  handleEditMode: HandleEditFunction;
 }
 
-const CheckItem = ({ id, todo, onDelete, onEdit }: ItemProps) => {
+const CheckItem = ({
+  id,
+  todo,
+  edit,
+  onDelete,
+  onEdit,
+  handleEditMode,
+}: ItemProps) => {
   const [checked, setChecked] = useState(false);
-  const [editMode, setEditMode] = useState(false);
   const [editTodo, setEditTodo] = useState(todo);
 
   const handleChecked = (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,8 +33,11 @@ const CheckItem = ({ id, todo, onDelete, onEdit }: ItemProps) => {
     onDelete(todo);
   };
 
-  const handleEditMode = () => {
-    setEditMode((prev) => !prev);
+  const handleEditModeOn = () => {
+    handleEditMode(id);
+  };
+
+  const handleEditModeOff = () => {
     onEdit(id, editTodo);
   };
 
@@ -33,11 +45,11 @@ const CheckItem = ({ id, todo, onDelete, onEdit }: ItemProps) => {
     setEditTodo(e.target.value);
   };
 
-  return editMode ? (
+  return edit ? (
     <Li>
       <form onSubmit={(e) => e.preventDefault()}>
         <input type='text' value={editTodo} onChange={handleEditTodo} />
-        <button onClick={handleEditMode}>확인</button>
+        <button onClick={handleEditModeOff}>확인</button>
       </form>
     </Li>
   ) : (
@@ -46,7 +58,7 @@ const CheckItem = ({ id, todo, onDelete, onEdit }: ItemProps) => {
       <label htmlFor={todo} className={checked ? 'complete' : 'now'}>
         {todo}
       </label>
-      <button onClick={handleEditMode}>수정</button>
+      <button onClick={handleEditModeOn}>수정</button>
       <button onClick={handleDelete}>X</button>
     </Li>
   );

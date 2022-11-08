@@ -5,6 +5,7 @@ import CheckList from './components/CheckList';
 interface Todos {
   id: number;
   todo: string;
+  edit: boolean;
 }
 
 const TodoList = () => {
@@ -18,7 +19,7 @@ const TodoList = () => {
 
   const handleAddTodos = () => {
     if (!inputValue) return alert('내용을 입력해주세요.');
-    setTodos((prev) => [...prev, { id: idNum, todo: inputValue }]);
+    setTodos((prev) => [...prev, { id: idNum, todo: inputValue, edit: false }]);
     setInputValue('');
     setIdNum((el) => el + 1);
   };
@@ -28,9 +29,18 @@ const TodoList = () => {
     setTodos(newTodos);
   };
 
-  const onEdit = (id: string | number, text: string) => {
+  const handleEditMode = (id: number) => {
     const newTodos = [...todos].map((el) =>
-      el.id === id ? { id: el.id, todo: text } : el
+      el.id === id
+        ? { id: el.id, todo: el.todo, edit: true }
+        : { id: el.id, todo: el.todo, edit: false }
+    );
+    setTodos(newTodos);
+  };
+
+  const onEdit = (id: number, text: string) => {
+    const newTodos = [...todos].map((el) =>
+      el.id === id ? { id: el.id, todo: text, edit: false } : el
     );
     setTodos(newTodos);
   };
@@ -48,7 +58,12 @@ const TodoList = () => {
         <button onClick={handleAddTodos}>입력</button>
       </form>
       {todos.length !== 0 && (
-        <CheckList todos={todos} onDelete={onDelete} onEdit={onEdit} />
+        <CheckList
+          todos={todos}
+          onDelete={onDelete}
+          onEdit={onEdit}
+          handleEditMode={handleEditMode}
+        />
       )}
     </Main>
   );
