@@ -17,6 +17,7 @@ const TodoList = () => {
   };
 
   const handleAddTodos = () => {
+    if (!inputValue) return alert('내용을 입력해주세요.');
     setTodos((prev) => [...prev, { id: idNum, todo: inputValue }]);
     setInputValue('');
     setIdNum((el) => el + 1);
@@ -24,6 +25,13 @@ const TodoList = () => {
 
   const onDelete = (text: string) => {
     const newTodos = [...todos].filter((el) => el.todo !== text);
+    setTodos(newTodos);
+  };
+
+  const onEdit = (id: string | number, text: string) => {
+    const newTodos = [...todos].map((el) =>
+      el.id === id ? { id: el.id, todo: text } : el
+    );
     setTodos(newTodos);
   };
 
@@ -39,7 +47,9 @@ const TodoList = () => {
         />
         <button onClick={handleAddTodos}>입력</button>
       </form>
-      {todos.length !== 0 && <CheckList todos={todos} onDelete={onDelete} />}
+      {todos.length !== 0 && (
+        <CheckList todos={todos} onDelete={onDelete} onEdit={onEdit} />
+      )}
     </Main>
   );
 };
