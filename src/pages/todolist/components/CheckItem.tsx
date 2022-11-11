@@ -4,30 +4,30 @@ import styled from 'styled-components';
 type DeleteFunction = (text: string) => void;
 type EditFunction = (id: number, text: string) => void;
 type HandleEditFunction = (id: number) => void;
+type HandleCheckedFunction = (id: number) => void;
 
 interface ItemProps {
   id: number;
   todo: string;
+  checked: boolean;
   edit: boolean;
   onDelete: DeleteFunction;
   onEdit: EditFunction;
   handleEditMode: HandleEditFunction;
+  handleChecked: HandleCheckedFunction;
 }
 
 const CheckItem = ({
   id,
   todo,
+  checked,
   edit,
   onDelete,
   onEdit,
   handleEditMode,
+  handleChecked,
 }: ItemProps) => {
-  const [checked, setChecked] = useState(false);
   const [editTodo, setEditTodo] = useState(todo);
-
-  const handleChecked = (e: ChangeEvent<HTMLInputElement>) => {
-    setChecked(e.target.checked);
-  };
 
   const handleDelete = () => {
     onDelete(todo);
@@ -45,16 +45,31 @@ const CheckItem = ({
     setEditTodo(e.target.value);
   };
 
+  const setHandleChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleChecked(id);
+  };
+
   return edit ? (
     <Li>
       <form onSubmit={(e) => e.preventDefault()}>
-        <input type='text' value={editTodo} onChange={handleEditTodo} />
+        <input
+          type='text'
+          value={editTodo}
+          onChange={handleEditTodo}
+          checked={checked}
+          autoFocus
+        />
         <button onClick={handleEditModeOff}>확인</button>
       </form>
     </Li>
   ) : (
     <Li>
-      <input type='checkbox' id={id.toString()} onChange={handleChecked} />
+      <input
+        type='checkbox'
+        id={id.toString()}
+        onChange={setHandleChecked}
+        checked={checked}
+      />
       <label htmlFor={todo} className={checked ? 'complete' : 'now'}>
         {todo}
       </label>

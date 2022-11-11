@@ -1,10 +1,11 @@
-import { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import CheckList from './components/CheckList';
 
 interface Todos {
   id: number;
   todo: string;
+  checked: boolean;
   edit: boolean;
 }
 
@@ -19,7 +20,10 @@ const TodoList = () => {
 
   const handleAddTodos = () => {
     if (!inputValue) return alert('내용을 입력해주세요.');
-    setTodos((prev) => [...prev, { id: idNum, todo: inputValue, edit: false }]);
+    setTodos((prev) => [
+      ...prev,
+      { id: idNum, todo: inputValue, checked: false, edit: false },
+    ]);
     setInputValue('');
     setIdNum((el) => el + 1);
   };
@@ -32,15 +36,26 @@ const TodoList = () => {
   const handleEditMode = (id: number) => {
     const newTodos = [...todos].map((el) =>
       el.id === id
-        ? { id: el.id, todo: el.todo, edit: true }
-        : { id: el.id, todo: el.todo, edit: false }
+        ? { id: el.id, todo: el.todo, checked: el.checked, edit: true }
+        : { id: el.id, todo: el.todo, checked: el.checked, edit: false }
+    );
+    setTodos(newTodos);
+  };
+
+  const handleChecked = (id: number) => {
+    const newTodos = [...todos].map((el) =>
+      el.id === id
+        ? { id: el.id, todo: el.todo, checked: !el.checked, edit: el.edit }
+        : { id: el.id, todo: el.todo, checked: el.checked, edit: el.edit }
     );
     setTodos(newTodos);
   };
 
   const onEdit = (id: number, text: string) => {
     const newTodos = [...todos].map((el) =>
-      el.id === id ? { id: el.id, todo: text, edit: false } : el
+      el.id === id
+        ? { id: el.id, todo: text, checked: el.checked, edit: false }
+        : el
     );
     setTodos(newTodos);
   };
@@ -63,6 +78,7 @@ const TodoList = () => {
           onDelete={onDelete}
           onEdit={onEdit}
           handleEditMode={handleEditMode}
+          handleChecked={handleChecked}
         />
       )}
     </Main>
