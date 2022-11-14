@@ -1,13 +1,7 @@
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import CheckList from './components/CheckList';
-
-interface Todos {
-  id: number;
-  todo: string;
-  checked: boolean;
-  edit: boolean;
-}
+import { Todos } from '../../utils/interface_todolist';
 
 const TodoList = () => {
   const [todos, setTodos] = useState<Todos[] | never[]>([]);

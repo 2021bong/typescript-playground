@@ -1,21 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
-
-type DeleteFunction = (text: string) => void;
-type EditFunction = (id: number, text: string) => void;
-type HandleEditFunction = (id: number) => void;
-type HandleCheckedFunction = (id: number) => void;
-
-interface ItemProps {
-  id: number;
-  todo: string;
-  checked: boolean;
-  edit: boolean;
-  onDelete: DeleteFunction;
-  onEdit: EditFunction;
-  handleEditMode: HandleEditFunction;
-  handleChecked: HandleCheckedFunction;
-}
+import { ItemProps } from '../../../utils/interface_todolist';
 
 const CheckItem = ({
   id,
@@ -41,11 +26,11 @@ const CheckItem = ({
     onEdit(id, editTodo);
   };
 
-  const handleEditTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEditTodo = (e: ChangeEvent<HTMLInputElement>) => {
     setEditTodo(e.target.value);
   };
 
-  const setHandleChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const setHandleChecked = (e: ChangeEvent<HTMLInputElement>) => {
     handleChecked(id);
   };
 

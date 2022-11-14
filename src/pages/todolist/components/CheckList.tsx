@@ -1,24 +1,5 @@
 import CheckItem from './CheckItem';
-
-interface Todos {
-  id: number;
-  todo: string;
-  checked: boolean;
-  edit: boolean;
-}
-
-type DeleteFunction = (text: string) => void;
-type EditFunction = (id: number, text: string) => void;
-type HandleEditFunction = (id: number) => void;
-type HandleCheckedFunction = (id: number) => void;
-
-interface TodosProps {
-  todos: Todos[];
-  onDelete: DeleteFunction;
-  onEdit: EditFunction;
-  handleEditMode: HandleEditFunction;
-  handleChecked: HandleCheckedFunction;
-}
+import { Todos, TodosProps } from '../../../utils/interface_todolist';
 
 const CheckList = ({
   todos,

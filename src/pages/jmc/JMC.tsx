@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { handleFoodArr } from '../../utils/food';
-
-type Menu = string | undefined | null;
+import { Menu } from '../../utils/interface_jmc';
 
 const JMC = () => {
   const [foodTypes, setFoodTypes] = useState([
