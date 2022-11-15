@@ -91,10 +91,14 @@ const Main = styled.div`
   .title {
     margin-top: 30px;
     font-weight: 700;
-    font-size: 3rem;
+    font-size: 2rem;
   }
 
   .inputContainer {
     margin-bottom: 10px;
+
+    input {
+      width: 50%;
+    }
   }
 `;

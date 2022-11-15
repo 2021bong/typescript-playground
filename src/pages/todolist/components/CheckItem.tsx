@@ -14,24 +14,8 @@ const CheckItem = ({
 }: ItemProps) => {
   const [editTodo, setEditTodo] = useState(todo);
 
-  const handleDelete = () => {
-    onDelete(todo);
-  };
-
-  const handleEditModeOn = () => {
-    handleEditMode(id);
-  };
-
-  const handleEditModeOff = () => {
-    onEdit(id, editTodo);
-  };
-
   const handleEditTodo = (e: ChangeEvent<HTMLInputElement>) => {
     setEditTodo(e.target.value);
-  };
-
-  const setHandleChecked = (e: ChangeEvent<HTMLInputElement>) => {
-    handleChecked(id);
   };
 
   return edit ? (
@@ -44,7 +28,7 @@ const CheckItem = ({
           checked={checked}
           autoFocus
         />
-        <button onClick={handleEditModeOff}>확인</button>
+        <button onClick={() => onEdit(id, editTodo)}>확인</button>
       </form>
     </Li>
   ) : (
@@ -52,14 +36,14 @@ const CheckItem = ({
       <input
         type='checkbox'
         id={id.toString()}
-        onChange={setHandleChecked}
+        onChange={() => handleChecked(id)}
         checked={checked}
       />
       <label htmlFor={todo} className={checked ? 'complete' : 'now'}>
         {todo}
       </label>
-      <button onClick={handleEditModeOn}>수정</button>
-      <button onClick={handleDelete}>X</button>
+      <button onClick={() => handleEditMode(id)}>수정</button>
+      <button onClick={() => onDelete(todo)}>X</button>
     </Li>
   );
 };
