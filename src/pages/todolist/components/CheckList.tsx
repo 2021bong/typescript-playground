@@ -1,4 +1,5 @@
 import CheckItem from './CheckItem';
+import { memo } from 'react';
 import { Todos, TodosProps } from '../../../utils/interface_todolist';
 
 const CheckList = ({
@@ -27,4 +28,4 @@ const CheckList = ({
   );
 };
 
-export default CheckList;
+export default memo(CheckList);

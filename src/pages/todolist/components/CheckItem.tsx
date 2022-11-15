@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { memo, ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import { ItemProps } from '../../../utils/interface_todolist';
 
@@ -48,7 +48,7 @@ const CheckItem = ({
   );
 };
 
-export default CheckItem;
+export default memo(CheckItem);
 
 const Li = styled.li`
   .now {

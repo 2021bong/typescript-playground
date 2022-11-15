@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { memo, ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import CheckList from './components/CheckList';
 import { Todos } from '../../utils/interface_todolist';
@@ -79,7 +79,7 @@ const TodoList = () => {
   );
 };
 
-export default TodoList;
+export default memo(TodoList);
 
 const Main = styled.div`
   width: 500px;
