@@ -5,20 +5,34 @@ interface BtnSize {
   btnSize: boolean;
 }
 
+interface FlameUrl {
+  flameUrl: string;
+}
+
+const url = ['/images/flame1.png', '/images/flame2.png', '/images/flame3.png'];
+
 const BirthdayCake = () => {
   const [btnSize, setBtnSize] = useState(false);
   const [candleFlame, setCandleFlame] = useState(true);
+  const [flameUrl, setFlameUrl] = useState('/images/flame1.png');
 
   useEffect(() => {
     if (!candleFlame) {
-      return setBtnSize(false);
+      setBtnSize(false);
+      setFlameUrl('');
+      return;
     }
     const btnSizeTime = setInterval(() => {
       setBtnSize((prev) => !prev);
     }, 700);
 
+    const flameUrlTime = setInterval(() => {
+      setFlameUrl(url[Math.floor(Math.random() * url.length)]);
+    }, 300);
+
     return () => {
       clearInterval(btnSizeTime);
+      clearInterval(flameUrlTime);
     };
   }, [candleFlame]);
 
@@ -27,17 +41,21 @@ const BirthdayCake = () => {
   };
 
   return (
-    <Main>
-      <h1>
-        <br />
-        💕 정예원 💕
-        <br />
-        생일 축하해 🎉
-      </h1>
-      <BlowBtn btnSize={btnSize} onClick={handleCandleFlame}>
-        {!candleFlame ? '생일 축하해' : '촛불 끄기'}
-      </BlowBtn>
-    </Main>
+    <Cake>
+      <CandleFlame flameUrl={flameUrl}>
+        {!candleFlame && (
+          <h1>
+            <br />
+            💕 정예원 💕
+            <br />
+            생일 축하해 🎉
+          </h1>
+        )}
+        <BlowBtn btnSize={btnSize} onClick={handleCandleFlame}>
+          {!candleFlame ? '생일 축하해' : '촛불 끄기'}
+        </BlowBtn>
+      </CandleFlame>
+    </Cake>
   );
 };
 export default BirthdayCake;
@@ -66,13 +84,19 @@ const BlowBtn = styled.button<BtnSize>`
   }
 `;
 
-const Main = styled.div`
+const CandleFlame = styled.div<FlameUrl>`
+  width: inherit;
+  height: inherit;
+  padding: 80px;
+  background: ${({ flameUrl }) => `no-repeat bottom/150% url(${flameUrl})`};
+`;
+
+const Cake = styled.div`
   position: relative;
   width: 100%;
   height: 50rem;
   max-width: 1024px;
   margin: 20px auto;
-  padding: 80px;
   background: no-repeat bottom/150% url('/images/birthday_cake.jpg');
   text-align: center;
 
