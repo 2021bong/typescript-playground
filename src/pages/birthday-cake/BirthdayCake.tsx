@@ -9,12 +9,12 @@ interface FlameUrl {
   flameUrl: string;
 }
 
-const url = ['/images/flame1.png', '/images/flame2.png', '/images/flame3.png'];
+const url = ['images/flame1.png', 'images/flame2.png', 'images/flame3.png'];
 
 const BirthdayCake = () => {
   const [btnSize, setBtnSize] = useState(false);
   const [candleFlame, setCandleFlame] = useState(true);
-  const [flameUrl, setFlameUrl] = useState('/images/flame1.png');
+  const [flameUrl, setFlameUrl] = useState('images/flame1.png');
 
   useEffect(() => {
     if (!candleFlame) {
@@ -97,7 +97,7 @@ const Cake = styled.div`
   height: 50rem;
   max-width: 1024px;
   margin: 20px auto;
-  background: no-repeat bottom/150% url('/images/birthday_cake.jpg');
+  background: no-repeat bottom/150% url('images/birthday_cake.jpg');
   text-align: center;
 
   h1 {
