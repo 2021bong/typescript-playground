@@ -46,7 +46,7 @@ const BirthdayCake = () => {
         {!candleFlame && (
           <h1>
             <br />
-            💕 정예원 💕
+            💕 케빈 💕
             <br />
             생일 축하해 🎉
           </h1>
