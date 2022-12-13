@@ -5,6 +5,7 @@ import theme from './styles/theme';
 import JMC from './pages/jmc/JMC';
 import TodoList from './pages/todolist/TodoList';
 import BirthdayCake from './pages/birthday-cake/BirthdayCake';
+import Save from './pages/save/Save';
 
 const Router = () => {
   return (
@@ -12,7 +13,8 @@ const Router = () => {
       <HashRouter>
         <GlobalStyle />
         <Routes>
-          <Route path='/' element={<BirthdayCake />} />
+          <Route path='/' element={<Save />} />
+          <Route path='/bdaycake' element={<BirthdayCake />} />
           <Route path='/todolist' element={<TodoList />} />
           <Route path='/jmc' element={<JMC />} />
         </Routes>
