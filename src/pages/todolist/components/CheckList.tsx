@@ -1,6 +1,6 @@
 import CheckItem from './CheckItem';
 import { memo } from 'react';
-import { Todos, TodosProps } from '../../../utils/interface_todolist';
+import { Todos, TodosProps } from '../../../types/types_todolist';
 
 const CheckList = ({
   todos,

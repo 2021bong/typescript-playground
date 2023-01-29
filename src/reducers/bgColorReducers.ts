@@ -6,7 +6,7 @@ const initialState = {
   color: '',
 };
 
-const reducer = (state = initialState, action: Action) => {
+const bgColorReducers = (state = initialState, action: Action) => {
   switch (action.type) {
     case 'CHANGE_RED':
       return (state = { color: 'allRed' });
@@ -19,4 +19,4 @@ const reducer = (state = initialState, action: Action) => {
   }
 };
 
-export default reducer;
+export default bgColorReducers;

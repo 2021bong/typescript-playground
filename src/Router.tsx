@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
 
 import { Provider } from 'react-redux';
-import { bgColorStore } from './store';
+import { bgColorStore, todoStore } from './store';
 
 import JMC from './pages/jmc/JMC';
 import TodoList from './pages/todolist/TodoList';
@@ -22,10 +22,14 @@ const Router = () => {
             <Route path='/' element={<ChangeBgColor />} />
           </Routes>
         </Provider>
+        <Provider store={todoStore}>
+          <Routes>
+            <Route path='/todolist' element={<TodoList />} />
+          </Routes>
+        </Provider>
         <Routes>
           <Route path='/save' element={<Save />} />
           <Route path='/bdaycake' element={<BirthdayCake />} />
-          <Route path='/todolist' element={<TodoList />} />
           <Route path='/jmc' element={<JMC />} />
         </Routes>
       </BrowserRouter>

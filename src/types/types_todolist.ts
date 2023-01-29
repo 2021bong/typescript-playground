@@ -1,4 +1,4 @@
-export interface Todos {
+export interface Todo {
   id: number;
   todo: string;
   checked: boolean;
@@ -11,7 +11,7 @@ type HandleEditFunction = (id: number) => void;
 type HandleCheckedFunction = (id: number) => void;
 
 export interface TodosProps {
-  todos: Todos[];
+  todos: Todo[];
   onDelete: DeleteFunction;
   onEdit: EditFunction;
   handleEditMode: HandleEditFunction;

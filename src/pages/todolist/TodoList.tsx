@@ -1,12 +1,21 @@
 import { memo, ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import CheckList from './components/CheckList';
-import { Todos } from '../../utils/interface_todolist';
+import { TodoListState } from '../../reducers/todoReducers';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import {
+  addTodo,
+  deleteTodo,
+  goEditMode,
+  editTodo,
+  checkTodo,
+} from '../../actions/todoActions';
 
 const TodoList = () => {
-  const [todos, setTodos] = useState<Todos[] | never[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
-  const [idNum, setIdNum] = useState(1);
+  const dispatch = useDispatch();
+  const todos = useSelector((state: TodoListState) => state.todos);
 
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -14,44 +23,24 @@ const TodoList = () => {
 
   const handleAddTodos = () => {
     if (!inputValue) return alert('내용을 입력해주세요.');
-    setTodos((prev) => [
-      ...prev,
-      { id: idNum, todo: inputValue, checked: false, edit: false },
-    ]);
+    dispatch(addTodo(inputValue));
     setInputValue('');
-    setIdNum((el) => el + 1);
   };
 
   const onDelete = (text: string) => {
-    const newTodos = [...todos].filter((el) => el.todo !== text);
-    setTodos(newTodos);
+    dispatch(deleteTodo(text));
   };
 
   const handleEditMode = (id: number) => {
-    const newTodos = [...todos].map((el) =>
-      el.id === id
-        ? { id: el.id, todo: el.todo, checked: el.checked, edit: true }
-        : { id: el.id, todo: el.todo, checked: el.checked, edit: false }
-    );
-    setTodos(newTodos);
+    dispatch(goEditMode(id));
   };
 
   const handleChecked = (id: number) => {
-    const newTodos = [...todos].map((el) =>
-      el.id === id
-        ? { id: el.id, todo: el.todo, checked: !el.checked, edit: el.edit }
-        : { id: el.id, todo: el.todo, checked: el.checked, edit: el.edit }
-    );
-    setTodos(newTodos);
+    dispatch(checkTodo(id));
   };
 
   const onEdit = (id: number, text: string) => {
-    const newTodos = [...todos].map((el) =>
-      el.id === id
-        ? { id: el.id, todo: text, checked: el.checked, edit: false }
-        : el
-    );
-    setTodos(newTodos);
+    dispatch(editTodo(id, text));
   };
 
   return (
