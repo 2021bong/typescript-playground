@@ -1,24 +1,34 @@
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import GlobalStyle from './styles/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
+
+import { Provider } from 'react-redux';
+import { bgColorStore } from './store';
+
 import JMC from './pages/jmc/JMC';
 import TodoList from './pages/todolist/TodoList';
 import BirthdayCake from './pages/birthday-cake/BirthdayCake';
 import Save from './pages/save/Save';
+import ChangeBgColor from './pages/chagebg/ChangeBgColor';
 
 const Router = () => {
   return (
     <ThemeProvider theme={theme}>
-      <HashRouter>
+      <BrowserRouter basename='/typescript-playground'>
         <GlobalStyle />
+        <Provider store={bgColorStore}>
+          <Routes>
+            <Route path='/' element={<ChangeBgColor />} />
+          </Routes>
+        </Provider>
         <Routes>
-          <Route path='/' element={<Save />} />
+          <Route path='/save' element={<Save />} />
           <Route path='/bdaycake' element={<BirthdayCake />} />
           <Route path='/todolist' element={<TodoList />} />
           <Route path='/jmc' element={<JMC />} />
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </ThemeProvider>
   );
 };
