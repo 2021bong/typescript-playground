@@ -1,4 +1,4 @@
-import { FoodTypes } from './interface_jmc';
+import { FoodTypes } from '../types/types_jmc';
 
 const hansik: string[] = [
   '김치찌개',

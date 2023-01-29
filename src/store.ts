@@ -1,4 +1,9 @@
 import { createStore } from 'redux';
-import bgColorReduers from './reducers/bgColorReducers';
+import bgColorReducers from './reducers/bgColorReducers';
+import todoReducers from './reducers/todoReducers';
 
-export const bgColorStore = createStore(bgColorReduers);
+const bgColorStore = createStore(bgColorReducers);
+
+const todoStore = createStore(todoReducers);
+
+export { bgColorStore, todoStore };

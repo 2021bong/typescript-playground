@@ -1,6 +1,6 @@
 import { MouseEvent, useEffect, useState } from 'react';
 import { handleFoodArr } from '../../utils/food';
-import { Menu } from '../../utils/interface_jmc';
+import { Menu } from '../../types/types_jmc';
 import { Main } from './JMC.styled';
 
 const JMC = () => {

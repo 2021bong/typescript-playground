@@ -1,6 +1,6 @@
 import { memo, ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
-import { ItemProps } from '../../../utils/interface_todolist';
+import { ItemProps } from '../../../types/types_todolist';
 
 const CheckItem = ({
   id,
