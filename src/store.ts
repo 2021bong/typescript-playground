@@ -1,9 +1,10 @@
-import { createStore } from 'redux';
-import bgColorReducers from './reducers/bgColorReducers';
-import todoReducers from './reducers/todoReducers';
+import { configureStore } from '@reduxjs/toolkit';
+import todoSlice from './reducers/todoSlice';
+import bgColorSlice from './reducers/bgColorSlice';
 
-const bgColorStore = createStore(bgColorReducers);
+const store = configureStore({
+  reducer: { todo: todoSlice, bgColor: bgColorSlice },
+});
 
-const todoStore = createStore(todoReducers);
-
-export { bgColorStore, todoStore };
+export type RootState = ReturnType<typeof store.getState>;
+export default store;

@@ -1,6 +1,6 @@
 import CheckItem from './CheckItem';
 import { memo } from 'react';
-import { Todos, TodosProps } from '../../../types/types_todolist';
+import { Todo, TodosProps } from '../../../types/types_todolist';
 
 const CheckList = ({
   todos,
@@ -11,7 +11,7 @@ const CheckList = ({
 }: TodosProps) => {
   return (
     <ul>
-      {todos.map((el: Todos) => (
+      {todos.map((el: Todo) => (
         <CheckItem
           key={el.id}
           id={el.id}

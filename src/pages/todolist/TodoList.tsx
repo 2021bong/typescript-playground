@@ -1,21 +1,21 @@
 import { memo, ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import CheckList from './components/CheckList';
-import { TodoListState } from '../../reducers/todoReducers';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import {
   addTodo,
   deleteTodo,
-  goEditMode,
+  editMode,
   editTodo,
   checkTodo,
-} from '../../actions/todoActions';
+} from '../../reducers/todoSlice';
+import { RootState } from '../../store';
 
 const TodoList = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const dispatch = useDispatch();
-  const todos = useSelector((state: TodoListState) => state.todos);
+  const todos = useSelector((state: RootState) => state.todo.todos);
 
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -27,12 +27,12 @@ const TodoList = () => {
     setInputValue('');
   };
 
-  const onDelete = (text: string) => {
-    dispatch(deleteTodo(text));
+  const onDelete = (id: number) => {
+    dispatch(deleteTodo(id));
   };
 
   const handleEditMode = (id: number) => {
-    dispatch(goEditMode(id));
+    dispatch(editMode(id));
   };
 
   const handleChecked = (id: number) => {
@@ -40,7 +40,7 @@ const TodoList = () => {
   };
 
   const onEdit = (id: number, text: string) => {
-    dispatch(editTodo(id, text));
+    dispatch(editTodo({ id, text }));
   };
 
   return (

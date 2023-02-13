@@ -5,7 +5,7 @@ export interface Todo {
   edit: boolean;
 }
 
-type DeleteFunction = (text: string) => void;
+type DeleteFunction = (id: number) => void;
 type EditFunction = (id: number, text: string) => void;
 type HandleEditFunction = (id: number) => void;
 type HandleCheckedFunction = (id: number) => void;

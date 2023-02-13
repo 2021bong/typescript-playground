@@ -1,35 +1,29 @@
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-
-interface State {
-  color: string;
-}
+import { red, green, blue, reset } from '../../reducers/bgColorSlice';
+import { RootState } from '../../store';
 
 const ChangeBgColor = () => {
-  const color = useSelector((state: State) => state.color);
+  const color = useSelector((state: RootState) => state.bgColor.color);
   const dispatch = useDispatch();
 
   return (
     <Container>
       <h1>change bg</h1>
-      <button className='resetBtn' onClick={() => dispatch({ type: '' })}>
+      <button className='resetBtn' onClick={() => dispatch(reset())}>
         reset
       </button>
       <div className={`box red ${color}`}>
         Red
-        <button onClick={() => dispatch({ type: 'CHANGE_RED' })}>change</button>
+        <button onClick={() => dispatch(red())}>change</button>
       </div>
       <div className={`box green ${color}`}>
         Green
-        <button onClick={() => dispatch({ type: 'CHANGE_GREEN' })}>
-          change
-        </button>
+        <button onClick={() => dispatch(green())}>change</button>
       </div>
       <div className={`box blue ${color}`}>
         Blue
-        <button onClick={() => dispatch({ type: 'CHANGE_BLUE' })}>
-          change
-        </button>
+        <button onClick={() => dispatch(blue())}>change</button>
       </div>
     </Container>
   );

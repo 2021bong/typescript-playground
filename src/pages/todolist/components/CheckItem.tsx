@@ -43,7 +43,7 @@ const CheckItem = ({
         {todo}
       </label>
       <button onClick={() => handleEditMode(id)}>수정</button>
-      <button onClick={() => onDelete(todo)}>X</button>
+      <button onClick={() => onDelete(id)}>X</button>
     </Li>
   );
 };
