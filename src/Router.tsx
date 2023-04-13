@@ -1,34 +1,72 @@
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import GlobalStyle from './styles/GlobalStyle';
-import { ThemeProvider } from 'styled-components';
-import theme from './styles/theme';
+import { createBrowserRouter } from 'react-router-dom';
 
-import { Provider } from 'react-redux';
-import store from './store';
-
-import JMC from './pages/jmc/JMC';
-import TodoList from './pages/todolist/TodoList';
-import BirthdayCake from './pages/birthday-cake/BirthdayCake';
-import Save from './pages/save/Save';
+import Index from './pages';
 import ChangeBgColor from './pages/chagebg/ChangeBgColor';
+import TodoList from './pages/todolist/TodoList';
+import Save from './pages/save/Save';
+import BirthdayCake from './pages/birthday-cake/BirthdayCake';
+import JMC from './pages/jmc/JMC';
 
-const Router = () => {
-  return (
-    <ThemeProvider theme={theme}>
-      <BrowserRouter basename='/typescript-playground'>
-        <GlobalStyle />
-        <Provider store={store}>
-          <Routes>
-            <Route path='/' element={<ChangeBgColor />} />
-            <Route path='/todolist' element={<TodoList />} />
-            <Route path='/save' element={<Save />} />
-            <Route path='/bdaycake' element={<BirthdayCake />} />
-            <Route path='/jmc' element={<JMC />} />
-          </Routes>
-        </Provider>
-      </BrowserRouter>
-    </ThemeProvider>
-  );
-};
+import Board from './pages/board';
+import AllBoard from './pages/board/AllBoard';
+import PopularBoard from './pages/board/PopularBoard';
+import HappyBoard from './pages/board/HappyBoard';
+import Notice from './pages/board/Notice';
+import FreeBoard from './pages/board/FreeBoard';
+import Suggestions from './pages/board/Suggestions';
+
+const Router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Index />,
+    children: [
+      { path: 'save', element: <Save /> },
+      { path: 'change-bg', element: <ChangeBgColor /> },
+      {
+        path: 'bdaycake',
+        element: <BirthdayCake />,
+      },
+      {
+        path: 'todolist',
+        element: <TodoList />,
+      },
+      {
+        path: 'jmc',
+        element: <JMC />,
+      },
+      {
+        path: 'board',
+        element: <Board />,
+        children: [
+          {
+            index: true,
+            path: 'all',
+            element: <AllBoard />,
+          },
+          {
+            path: 'popular',
+            element: <PopularBoard />,
+          },
+          {
+            path: 'happy',
+            element: <HappyBoard />,
+          },
+          {
+            path: 'notice',
+            element: <Notice />,
+          },
+          {
+            path: 'free',
+            element: <FreeBoard />,
+          },
+          {
+            path: 'suggestions',
+            element: <Suggestions />,
+          },
+        ],
+      },
+    ],
+  },
+]);
 
 export default Router;
